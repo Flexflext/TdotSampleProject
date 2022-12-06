@@ -17,8 +17,9 @@ public class PlayerCombat : MonoBehaviour
 
     private void Start()
     {
-        GameManager.Instance.PlayerInput.currentActionMap.FindAction("Fire").performed += OnFire;
-        GameManager.Instance.PlayerInput.currentActionMap.FindAction("Fire").canceled += OnFire;
+        PlayerInput inputAction = GetComponent<PlayerInput>();
+        inputAction.currentActionMap.FindAction("Fire").performed += OnFire;
+        inputAction.currentActionMap.FindAction("Fire").canceled += OnFire;
 
         mouse = Mouse.current;
         mainCam = Camera.main;
@@ -94,7 +95,7 @@ public class PlayerCombat : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameManager.Instance.PlayerInput.currentActionMap.FindAction("Fire").performed -= OnFire;
-        GameManager.Instance.PlayerInput.currentActionMap.FindAction("Fire").canceled -= OnFire;
+        //GameManager.Instance.PlayerInput.currentActionMap.FindAction("Fire").performed -= OnFire;
+        //GameManager.Instance.PlayerInput.currentActionMap.FindAction("Fire").canceled -= OnFire;
     }
 }

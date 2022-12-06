@@ -142,7 +142,7 @@ public class PlayerController : MonoBehaviour
 
     private void InitializeInput()
     {
-        InputActionMap map = GameManager.Instance.PlayerInput.currentActionMap;
+        InputActionMap map = GetComponent<PlayerInput>().currentActionMap;
 
         map.FindAction("Move").performed += OnMove;
         map.FindAction("Move").canceled += OnMove;
@@ -158,7 +158,7 @@ public class PlayerController : MonoBehaviour
     }
     private void RemoveBindings()
     {
-        InputActionMap map = GameManager.Instance.PlayerInput.currentActionMap;
+        InputActionMap map = GetComponent<PlayerInput>().currentActionMap;
 
         map.FindAction("Move").performed -= OnMove;
         map.FindAction("Move").canceled -= OnMove;
@@ -277,7 +277,7 @@ public class PlayerController : MonoBehaviour
         {
             if (previousYVelocity < -20)
             {
-                CameraManager.Instance.Shake();
+                //CameraManager.Instance.Shake();
 
                 m_LandingParticles.SetFloat("MoveDir", horizontalDir);
                 m_LandingParticles.Play();
@@ -416,7 +416,7 @@ public class PlayerController : MonoBehaviour
     public void Jump(float _jumpHeight, Vector2 _dir)
     {
         // Play sound
-        SoundManager.Instance.PlaySound(SoundManager.Instance.JumpSound);
+        //SoundManager.Instance.PlaySound(SoundManager.Instance.JumpSound);
 
         // Play particles
         m_JumpParticles.SetFloat("MoveDir", -horizontalDir);
@@ -536,7 +536,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDestroy()
     {
-        MapManager.Instance.RemoveBindings();
+        //MapManager.Instance.RemoveBindings();
         RemoveBindings();
         Terminate();
     }
