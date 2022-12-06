@@ -34,7 +34,7 @@ public struct EnemyData
 [System.Serializable]
 public struct Drops
 {
-    public Item Item;
+    //public Item Item;
     [Range(0, 1)] public float DropChance;
     public bool Despawn;
     public float DespawnTime;
@@ -42,10 +42,10 @@ public struct Drops
     {
         if (Random.Range(0f, 1f) <= DropChance)
         {
-            Item i = GameObject.Instantiate(Item);
-            i.transform.position = _position;
-            i.Despawn = Despawn;
-            i.despawnTime = DespawnTime;
+            // Item i = GameObject.Instantiate(Item);
+            // i.transform.position = _position;
+            // i.Despawn = Despawn;
+            // i.despawnTime = DespawnTime;
         }
     }
 }

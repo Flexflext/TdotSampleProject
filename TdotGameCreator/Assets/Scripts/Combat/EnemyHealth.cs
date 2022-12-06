@@ -18,7 +18,7 @@ public class EnemyHealth : Health
     }
     public override void GetDamage(int _value, Vector3 _knockbackDir)
     {
-        CameraManager.Instance.Shake();
+        //CameraManager.Instance.Shake();
 
         float defaultX = Mathf.Sign(_knockbackDir.x);
         if (defaultX > 0)
@@ -31,7 +31,7 @@ public class EnemyHealth : Health
         m_BloodParticles.Play();
 
         // play sound
-        SoundManager.Instance.PlaySound(SoundManager.Instance.HitHumanoidSound);
+        //SoundManager.Instance.PlaySound(SoundManager.Instance.HitHumanoidSound);
 
 
         // Do knockback

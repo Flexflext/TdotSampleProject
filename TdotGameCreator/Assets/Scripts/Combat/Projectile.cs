@@ -30,7 +30,7 @@ public class Projectile : MonoBehaviour
 
         if ((1 << _other.gameObject.layer) == m_ObstacleLayer)
         {
-            SoundManager.Instance.HitObjectSound.Play();
+            //SoundManager.Instance.HitObjectSound.Play();
             Destroy(this.gameObject);
             return;
         }

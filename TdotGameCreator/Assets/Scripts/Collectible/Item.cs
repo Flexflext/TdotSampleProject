@@ -49,14 +49,14 @@ public abstract class Item : MonoBehaviour, ICollectable
     }
     private void OnRespawn()
     {
-        for (int i = 0; i < GameManager.Instance.CollectedCollectibles.Count; i++)
-        {
-            if (GameManager.Instance.CollectedCollectibles[i] == this)
-            {
-                OnDelete();
-                return;
-            }
-        }
+        // for (int i = 0; i < GameManager.Instance.CollectedCollectibles.Count; i++)
+        // {
+        //     if (GameManager.Instance.CollectedCollectibles[i] == this)
+        //     {
+        //         OnDelete();
+        //         return;
+        //     }
+        // }
 
         this.gameObject.SetActive(true);
     }
@@ -66,7 +66,7 @@ public abstract class Item : MonoBehaviour, ICollectable
         if (_other.CompareTag("Player"))
         {
             if (!Despawn)
-                GameManager.Instance.CollectedCollectibles.Add(this);
+                //GameManager.Instance.CollectedCollectibles.Add(this);
 
             OnCollect();
             OnDelete();

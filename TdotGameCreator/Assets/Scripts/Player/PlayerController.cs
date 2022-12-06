@@ -158,19 +158,19 @@ public class PlayerController : MonoBehaviour
     }
     private void RemoveBindings()
     {
-        InputActionMap map = GetComponent<PlayerInput>().currentActionMap;
-
-        map.FindAction("Move").performed -= OnMove;
-        map.FindAction("Move").canceled -= OnMove;
-
-        map.FindAction("Jump").performed -= OnJump;
-        map.FindAction("Jump").canceled -= OnJump;
-
-        map.FindAction("Dash").performed -= OnDash;
-        map.FindAction("Dash").canceled -= OnDash;
-
-        map.FindAction("WallHang").performed -= OnWallHang;
-        map.FindAction("WallHang").canceled -= OnWallHang;
+        // InputActionMap map = GetComponent<PlayerInput>().currentActionMap;
+        //
+        // map.FindAction("Move").performed -= OnMove;
+        // map.FindAction("Move").canceled -= OnMove;
+        //
+        // map.FindAction("Jump").performed -= OnJump;
+        // map.FindAction("Jump").canceled -= OnJump;
+        //
+        // map.FindAction("Dash").performed -= OnDash;
+        // map.FindAction("Dash").canceled -= OnDash;
+        //
+        // map.FindAction("WallHang").performed -= OnWallHang;
+        // map.FindAction("WallHang").canceled -= OnWallHang;
     }
 
     private void Start()
@@ -366,7 +366,7 @@ public class PlayerController : MonoBehaviour
     private void PlayerDied()
     {
         Debug.LogWarning("Player Dies");
-        UIManager.Instance.OpenDeathPanel();
+        //UIManager.Instance.OpenDeathPanel();
         //this.gameObject.SetActive(false);
         Destroy(this.gameObject);
     }
