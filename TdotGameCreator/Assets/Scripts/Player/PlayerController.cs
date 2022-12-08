@@ -83,6 +83,8 @@ public class PlayerController : MonoBehaviour
     [Header("Dash")]
     [SerializeField] private float dashForce = 15f;
     [SerializeField] private float dashCooldown = 1.5f;
+    [SerializeField] private float dashReset = 0.5f;
+    private float dashResetTimer = 1000f;
     private float dashCDTimer = 1000f;
     private bool isDashing;
 
@@ -104,7 +106,7 @@ public class PlayerController : MonoBehaviour
 
     private bool facingRight;
     private bool jumpHeld;
-    private bool wallHangHeld;
+    private bool wallHangHeld = true;
 
     private Vector2 moveVal;
     private Vector3 mousePos;
@@ -152,9 +154,6 @@ public class PlayerController : MonoBehaviour
 
         map.FindAction("Dash").performed += OnDash;
         map.FindAction("Dash").canceled += OnDash;
-
-        map.FindAction("WallHang").performed += OnWallHang;
-        map.FindAction("WallHang").canceled += OnWallHang;
     }
     private void RemoveBindings()
     {
@@ -272,9 +271,10 @@ public class PlayerController : MonoBehaviour
         #endregion
 
         if (IsInEvent) return; // !!!DONT RUN CODE BELOW IF IS IN EVENT!!!
-
-        if (cc.m_IsGrounded)
+        
+        if (cc.m_IsGrounded && !isDashing)
         {
+            wallHangHeld = false;
             if (previousYVelocity < -20)
             {
                 //CameraManager.Instance.Shake();
@@ -291,14 +291,20 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            if (dashResetTimer > dashReset && isDashing)
+            {
+                ResetDash();
+            }
+            
             accelerationRuntime = m_AirborneSteer;
 
             ApplyAirLinearDrag();
 
+            wallHangHeld = true;
             if (canWallHang)
             {
                 isDashing = false;
-
+                
                 //if (allowWallClimb && verticalDir != 0)
                 ApplyWallHangGravity();
             }
@@ -320,11 +326,14 @@ public class PlayerController : MonoBehaviour
         coyoteTimeTimer += Time.deltaTime;
         jumpBufferTimer += Time.deltaTime;
         dashBufferTimer += Time.deltaTime;
+        dashResetTimer += Time.deltaTime;
         dashCDTimer += Time.deltaTime;
         wallHopBufferTimer += Time.deltaTime;
         #endregion
 
         previousYVelocity = RigidBody.velocity.y;
+
+        
     }
 
     private void FixedUpdate()
@@ -332,7 +341,7 @@ public class PlayerController : MonoBehaviour
         if (IsInEvent) return; // !!!DONT RUN CODE BELOW IF IS IN EVENT!!!
 
         if (canDash)
-            Dash(mousePos.x, mousePos.y);
+            Dash(moveVal.x, moveVal.y, true);
 
         // has performed no dash
         if (!isDashing)
@@ -394,12 +403,13 @@ public class PlayerController : MonoBehaviour
     {
         dashBufferTimer = 0;
     }
+    
     public void OnWallHang(CallbackContext ctx)
     {
-        if (ctx.performed)
-            wallHangHeld = true;
-        if (ctx.canceled)
-            wallHangHeld = false;
+        // if (ctx.performed)
+        //     wallHangHeld = true;
+        // if (ctx.canceled)
+        //     wallHangHeld = false;
     }
     #endregion
 
@@ -449,14 +459,15 @@ public class PlayerController : MonoBehaviour
     private void Dash(float _x, float _y, bool directionBased = false)
     {
         isDashing = true;
-        dashCDTimer = 0;
+        
 
         RigidBody.velocity = Vector2.zero;
         RigidBody.gravityScale = 0f;
         RigidBody.drag = 0f;
-
+        dashResetTimer = 0f;
+        
         Vector2 dir;
-
+        
         // Based on the moving direction of the player
         if (directionBased)
         {
@@ -480,6 +491,14 @@ public class PlayerController : MonoBehaviour
 
         RigidBody.AddForce(dir * dashForce, ForceMode2D.Impulse);
     }
+
+    private void ResetDash()
+    {
+        isDashing = false;
+        RigidBody.velocity = Vector2.zero;
+        dashCDTimer = 0;
+    }
+    
     private void Climb()
     {
         RigidBody.AddForce(new Vector2(0, verticalDir) * wallClimbAcceleration);
@@ -514,6 +533,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void ApplyFallGravity()
     {
+
         if (RigidBody.velocity.y < 0f || transform.position.y - lastJumpPos.y > jumpHeight)
         {
             RigidBody.gravityScale = fullJumpFallMultiplier;
@@ -529,8 +549,12 @@ public class PlayerController : MonoBehaviour
     }
     private void ApplyWallHangGravity()
     {
+        if (RigidBody.velocity.y > 0)
+        {
+            RigidBody.velocity = new Vector2(0, 0f); //set y velocity to 0
+        }
+        
         RigidBody.gravityScale = onWallGravityMultiplier;
-        RigidBody.velocity = new Vector2(0, 0f); //set y velocity to 0
     }
     #endregion
 

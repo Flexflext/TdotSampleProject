@@ -1,5 +1,5 @@
 {
-    "name": "CMN5201GPR-Stealthy-Vengeance1",
+    "name": "PlayerInput",
     "maps": [
         {
             "name": "Player",
@@ -36,15 +36,6 @@
                     "name": "Dash",
                     "type": "Button",
                     "id": "25ecdbdf-70da-467b-91e4-b4a1f7c32b05",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "WallHang",
-                    "type": "Button",
-                    "id": "57c29122-f2de-4f11-8e3d-caf2f81ac86f",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -212,22 +203,11 @@
                 {
                     "name": "",
                     "id": "1f8bd35b-ded5-47b1-92f9-df704d96e5af",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Dash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a7c75b81-f74f-40da-9566-e7cd0c91808d",
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "WallHang",
+                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
