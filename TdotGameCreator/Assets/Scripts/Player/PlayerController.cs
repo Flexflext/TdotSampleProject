@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool allowDashing = false;
     [SerializeField] private bool allowWallHang = false;
     [SerializeField] private bool allowWallHops = false;
-    [SerializeField] private bool allowWallClimb = false;
+    /* [SerializeField] */ private bool allowWallClimb = false;
     [SerializeField] private bool lookAtMouse = false;
 
     public bool IsInEvent;
@@ -84,6 +84,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float dashForce = 15f;
     [SerializeField] private float dashCooldown = 1.5f;
     [SerializeField] private float dashReset = 0.5f;
+    [SerializeField] private float dashResetEffect = 0.2f;
     private float dashResetTimer = 1000f;
     private float dashCDTimer = 1000f;
     private bool isDashing;
@@ -134,7 +135,7 @@ public class PlayerController : MonoBehaviour
     }
     private bool canDash => allowDashing && dashBufferTimer < dashBufferTime && !isDashing && dashCDTimer >= dashCooldown;
     private bool canWallHop => allowWallHops && wallHopBufferTimer < wallHopBufferTime;
-    private bool canWallHang => allowWallHang && wallHangHeld && (cc.m_IsOnLeftWall || cc.m_IsOnRightWall);
+    private bool canWallHang => allowWallHang && wallHangHeld && ((cc.m_IsOnLeftWall && moveVal.x < 0) || (cc.m_IsOnRightWall && moveVal.x > 0));
 
     private void Awake()
     {
@@ -385,7 +386,10 @@ public class PlayerController : MonoBehaviour
     public void OnMove(CallbackContext ctx)
     {
         if (allowMoving)
+        {
             moveVal = ctx.ReadValue<Vector2>();
+            moveVal.y = 0;
+        }
         else
             moveVal = Vector2.zero;
     }
@@ -495,7 +499,7 @@ public class PlayerController : MonoBehaviour
     private void ResetDash()
     {
         isDashing = false;
-        RigidBody.velocity = Vector2.zero;
+        RigidBody.velocity *= dashResetEffect;
         dashCDTimer = 0;
     }
     

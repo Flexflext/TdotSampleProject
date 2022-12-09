@@ -501,10 +501,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allowMoving: 1
   allowJumping: 1
-  allowDashing: 0
+  allowDashing: 1
   allowWallHang: 1
   allowWallHops: 1
-  allowWallClimb: 0
   lookAtMouse: 0
   IsInEvent: 0
   acceleration: 100
@@ -518,14 +517,16 @@ MonoBehaviour:
   airLinDrag: 2.5
   fullJumpFallMultiplier: 10
   halfJumpFallMultiplier: 8
-  amountOfJumps: 2
+  amountOfJumps: 1
   m_AirborneSteer: 50
   m_JumpParticles: {fileID: 8969914764484051996}
   m_LandingParticles: {fileID: 9106574898727763588}
   dashForce: 35
   dashCooldown: 1.5
+  dashReset: 0.05
+  dashResetEffect: 0.2
   wallHopHeight: 1.5
-  onWallGravityMultiplier: 30
+  onWallGravityMultiplier: 1
   wallClimbAcceleration: 750
   wallClimbMaxSpeed: 1
   RigidBody: {fileID: 7089133594097294968}
@@ -623,10 +624,6 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 25ecdbdf-70da-467b-91e4-b4a1f7c32b05
     m_ActionName: Player/Dash[/Mouse/rightButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 57c29122-f2de-4f11-8e3d-caf2f81ac86f
-    m_ActionName: Player/WallHang[/Keyboard/leftShift]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 0223710d-08e8-434b-a70b-8c2b08f22809
