@@ -1544,7 +1544,7 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       char_red_1_29: -913815126
-      char_red_1_6: 1261814029
+      char_red_1_27: 1622731724
       char_red_1_28: -1700478755
       char_red_1_18: -1001243585
       char_red_1_32: -821029554
@@ -1573,8 +1573,8 @@ TextureImporter:
       char_red_1_41: -428532452
       char_red_1_7: -1513714842
       char_red_1_12: -465586147
-      char_red_1_22: 268646020
       char_red_1_21: -392233098
+      char_red_1_22: 268646020
       char_red_1_58: 1006145158
       char_red_1_3: -1771806845
       char_red_1_50: -129264388
@@ -1601,13 +1601,13 @@ TextureImporter:
       char_red_1_42: 602019990
       char_red_1_66: -1912780378
       char_red_1_34: 194243534
-      char_red_1_56: -328061918
       char_red_1_30: -1173173681
-      char_red_1_10: 942665803
       char_red_1_17: 59675153
-      char_red_1_27: 1622731724
-      char_red_1_19: -1084476896
+      char_red_1_10: 942665803
       char_red_1_33: 2000227540
+      char_red_1_6: 1261814029
+      char_red_1_19: -1084476896
+      char_red_1_56: -328061918
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
