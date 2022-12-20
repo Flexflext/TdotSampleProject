@@ -3,37 +3,62 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Parallex : MonoBehaviour
 {
-    private float lenght;
-    private float startPos;
+    [System.Serializable]
+    struct ParallexBackground
+    {
+        [SerializeField] public SpriteRenderer rendererObject;
+        [Range(0,1)]
+        public float moveWithCamera;
+        [HideInInspector]
+        public float Lenght;
+        [HideInInspector]
+        public float StartPos;
+    }
+
+
+    [SerializeField] private ParallexBackground[] parallexBackgrounds;
     private Transform camTransform;
-    [Range(0,1)]
-    [SerializeField] private float moveWithCamera;
-    
+
+
     // Start is called before the first frame update
     void Start()
     {
+        for (int i = 0; i < parallexBackgrounds.Length; i++)
+        {
+            parallexBackgrounds[i].StartPos = parallexBackgrounds[i].rendererObject.transform.position.x;
+            parallexBackgrounds[i].Lenght = parallexBackgrounds[i].rendererObject.bounds.size.x;
+        }
+        
         camTransform = Camera.main.transform;
-        startPos = transform.position.x;
-        lenght = GetComponent<SpriteRenderer>().bounds.size.x;
+        
     }
 
     private void LateUpdate()
     {
-        float temp = (camTransform.transform.position.x * (1 - moveWithCamera));
-        float distance = (camTransform.transform.position.x * moveWithCamera);
-
-        transform.position = new Vector3(startPos + distance, transform.position.y, transform.position.z);
-
-        if (temp > startPos + lenght)
+        float temp = 0;
+        float distance = 0;
+        
+        for (int i = 0; i < parallexBackgrounds.Length; i++)
         {
-            startPos += lenght;
+            temp = (camTransform.transform.position.x * (1 - parallexBackgrounds[i].moveWithCamera));
+            distance = (camTransform.transform.position.x * parallexBackgrounds[i].moveWithCamera);
+
+            parallexBackgrounds[i].rendererObject.transform.position = new Vector3(parallexBackgrounds[i].StartPos + distance, parallexBackgrounds[i].rendererObject.transform.position.y, parallexBackgrounds[i].rendererObject.transform.position.z);
+
+            if (temp > parallexBackgrounds[i].StartPos + parallexBackgrounds[i].Lenght)
+            {
+                parallexBackgrounds[i].StartPos += parallexBackgrounds[i].Lenght;
+            }
+            else if (temp < parallexBackgrounds[i].StartPos - parallexBackgrounds[i].Lenght)
+            {
+                parallexBackgrounds[i].StartPos -= parallexBackgrounds[i].Lenght;
+            }
         }
-        else if (temp < startPos - lenght)
-        {
-            startPos -= lenght;
-        }
+        
+        
     }
 }

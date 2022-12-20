@@ -75,6 +75,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float halfJumpFallMultiplier = 5f; // Gravity applied when doing half jump
     [SerializeField] private int amountOfJumps = 1; // The amount of additional jumps the player can make
     [SerializeField] private float m_AirborneSteer = 35f;
+    [SerializeField] private Vector2 wallJumpDir;
     [SerializeField] private VisualEffect m_JumpParticles;
     [SerializeField] private VisualEffect m_LandingParticles;
     private int jumpsCounted;
@@ -362,7 +363,7 @@ public class PlayerController : MonoBehaviour
 
             // Is on wall and jumps against it (climb with jumps)
             if (canWallHang && canWallHop)
-                Jump(wallHopHeight, new Vector2(-horizontalDir / 2f, 1f));
+                Jump(wallHopHeight, new Vector2(-horizontalDir * wallJumpDir.x, wallJumpDir.y));
         }
 
         // has performed a dash and has an additional jump ready
