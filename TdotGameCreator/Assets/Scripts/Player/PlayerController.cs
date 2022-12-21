@@ -88,13 +88,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float dashResetEffect = 0.2f;
     private float dashResetTimer = 1000f;
     private float dashCDTimer = 1000f;
-    private bool isDashing;
+    [HideInInspector] public bool isDashing;
 
     [Header("Wall Movement")]
     [SerializeField] private float wallHopHeight = 1.5f;
     [SerializeField] private float onWallGravityMultiplier;
     [SerializeField] private float wallClimbAcceleration = 50f;
     [SerializeField] private float wallClimbMaxSpeed = 6f;
+    [HideInInspector] public bool isWallHanging;
 
     [Header("References")]
     public Rigidbody2D RigidBody;
@@ -138,7 +139,7 @@ public class PlayerController : MonoBehaviour
     }
     private bool canDash => allowDashing && dashBufferTimer < dashBufferTime && !isDashing && dashCDTimer >= dashCooldown;
     private bool canWallHop => allowWallHops && wallHopBufferTimer < wallHopBufferTime;
-    private bool canWallHang => allowWallHang && wallHangHeld && (((cc.m_IsOnLeftWall && moveVal.x < 0) || (cc.m_IsOnRightWall && moveVal.x > 0)) && !isDashing);
+    public bool canWallHang => allowWallHang && wallHangHeld && (((cc.m_IsOnLeftWall && moveVal.x < 0) || (cc.m_IsOnRightWall && moveVal.x > 0)) && !isDashing);
 
     private void Awake()
     {
@@ -266,6 +267,8 @@ public class PlayerController : MonoBehaviour
                 m_Animator.SetTrigger("Jumping");
             else if (RigidBody.velocity.y < -7)
                 m_Animator.SetTrigger("Falling");
+
+            isWallHanging = false;
         }
 
         // WallHang & Climb Animation
@@ -276,6 +279,8 @@ public class PlayerController : MonoBehaviour
 
             if (allowWallClimb && verticalDir != 0)
                 m_Animator.SetTrigger("WallClimb");
+            
+            isWallHanging = true;
         }
         // Run and Idle Animation
         if (cc.m_IsGrounded && !canWallHang && !isDashing)
@@ -284,6 +289,8 @@ public class PlayerController : MonoBehaviour
                 m_Animator.SetTrigger("Running");
             else
                 m_Animator.SetTrigger("Idle");
+            
+            isWallHanging = false;
         }
 
 

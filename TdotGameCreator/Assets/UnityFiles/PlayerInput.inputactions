@@ -24,6 +24,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Meele",
+                    "type": "Button",
+                    "id": "2142c774-aad8-469f-85ff-d9c8309ed3a6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Jump",
                     "type": "Button",
                     "id": "cc3ea541-c58b-454c-a44f-a7cb5128bc56",
@@ -252,6 +261,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5fa6d071-d993-4f2d-aadf-828b6eeaa32b",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Meele",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

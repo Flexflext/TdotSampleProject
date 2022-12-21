@@ -910,10 +910,12 @@ MonoBehaviour:
   dashCooldown: 1.5
   dashReset: 0.1
   dashResetEffect: 0.2
+  isDashing: 0
   wallHopHeight: 1.5
   onWallGravityMultiplier: 1
   wallClimbAcceleration: 750
   wallClimbMaxSpeed: 1
+  isWallHanging: 0
   RigidBody: {fileID: 7089133594097294968}
   m_SpriteRenderer: {fileID: 7089133594758373481}
   graficsParent: {fileID: 1543344319}
@@ -1104,6 +1106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39bff0ffd3683f14690b310da68d181b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeBetweenAttacks: 0.5
   gfxParent: {fileID: 1543344319}
   animator: {fileID: 7089133593535387582}
   shotPosition: {fileID: 452898321}

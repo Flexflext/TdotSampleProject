@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="60eec584-c64a-4b44-afe0-109632de16ba" name="Changes" comment="" />
+    <list default="true" id="60eec584-c64a-4b44-afe0-109632de16ba" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TdotGameCreator/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TdotGameCreator/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animation/Player/Character_1/PlayerGFX_Char1.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/Player/Character_1/PlayerGFX_Char1.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Bounty Hunter/Animation/Gun-Version/Attack_Gun.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Bounty Hunter/Animation/Gun-Version/Attack_Gun.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Humanoid/Pref_Player_Stripped.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Humanoid/Pref_Player_Stripped.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Combat/Player_Combat.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Combat/Player_Combat.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Combat/Projectile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Combat/Projectile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UnityFiles/PlayerInput.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UnityFiles/PlayerInput.inputactions" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -71,6 +84,7 @@
       <workItem from="1670588422463" duration="1560000" />
       <workItem from="1671293166259" duration="669000" />
       <workItem from="1671527760834" duration="2229000" />
+      <workItem from="1671658631368" duration="5989000" />
     </task>
     <servers />
   </component>
