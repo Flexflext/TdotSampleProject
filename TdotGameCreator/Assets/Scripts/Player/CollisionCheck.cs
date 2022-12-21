@@ -108,7 +108,7 @@ public class CollisionCheck : MonoBehaviour
     /// </summary>
     private void ApplyCornerCorrection(float _verticalVelocity, float _newPos, int _direction)
     {
-        transform.position = new Vector3(transform.position.x + (Mathf.Clamp(_direction, -1, 1) * _newPos), transform.position.y, transform.position.z);
+        transform.position = new Vector3(transform.position.x + (Mathf.Clamp(_direction, -1, 1) * _newPos * 2), transform.position.y, transform.position.z);
 
         player.RigidBody.velocity = new Vector2(player.RigidBody.velocity.x, _verticalVelocity);
     }

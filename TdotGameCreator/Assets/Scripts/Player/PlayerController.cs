@@ -99,9 +99,11 @@ public class PlayerController : MonoBehaviour
     [Header("References")]
     public Rigidbody2D RigidBody;
     [SerializeField] private SpriteRenderer m_SpriteRenderer;
+    [SerializeField] private Transform graficsParent;
     [SerializeField] private CollisionCheck cc;
     [SerializeField] private ScriptableInt m_PlayerHealth;
     [SerializeField] private Animator m_Animator;
+    [SerializeField] private VisualEffect dashEffect;
     public Health Health;
     private Camera mainCam;
     private Mouse mouse;
@@ -136,7 +138,7 @@ public class PlayerController : MonoBehaviour
     }
     private bool canDash => allowDashing && dashBufferTimer < dashBufferTime && !isDashing && dashCDTimer >= dashCooldown;
     private bool canWallHop => allowWallHops && wallHopBufferTimer < wallHopBufferTime;
-    private bool canWallHang => allowWallHang && wallHangHeld && ((cc.m_IsOnLeftWall && moveVal.x < 0) || (cc.m_IsOnRightWall && moveVal.x > 0));
+    private bool canWallHang => allowWallHang && wallHangHeld && (((cc.m_IsOnLeftWall && moveVal.x < 0) || (cc.m_IsOnRightWall && moveVal.x > 0)) && !isDashing);
 
     private void Awake()
     {
@@ -152,10 +154,10 @@ public class PlayerController : MonoBehaviour
         map.FindAction("Move").canceled += OnMove;
 
         map.FindAction("Jump").performed += OnJump;
-        map.FindAction("Jump").canceled += OnJump;
+        //map.FindAction("Jump").canceled += OnJump;
 
         map.FindAction("Dash").performed += OnDash;
-        map.FindAction("Dash").canceled += OnDash;
+        //map.FindAction("Dash").canceled += OnDash;
     }
     private void RemoveBindings()
     {
@@ -206,12 +208,16 @@ public class PlayerController : MonoBehaviour
                 if (mousePos.x < transform.position.x)
                 {
                     facingRight = false;
-                    m_SpriteRenderer.flipX = true;
+                    graficsParent.transform.Rotate(new Vector3(0,180,0));
+                    dashEffect.SetFloat("Angle", 180);
+                    //m_SpriteRenderer.flipX = true;
                 }
                 else if (mousePos.x > transform.position.x)
                 {
                     facingRight = true;
-                    m_SpriteRenderer.flipX = false;
+                    graficsParent.transform.Rotate(new Vector3(0, 0, 0));
+                    dashEffect.SetFloat("Angle", 0);
+                    //m_SpriteRenderer.flipX = false;
                 }
             }
         }
@@ -220,21 +226,32 @@ public class PlayerController : MonoBehaviour
             if (canWallHang)
             {
                 if (cc.m_IsOnLeftWall)
-                    m_SpriteRenderer.flipX = false;
+                {
+                    graficsParent.transform.rotation = Quaternion.Euler(0, 0, 0);
+                    dashEffect.SetFloat("Angle", 0);
+                }
+                    
                 else if (cc.m_IsOnRightWall)
-                    m_SpriteRenderer.flipX = true;
+                {
+                    graficsParent.transform.rotation = Quaternion.Euler(0, 180, 0);
+                    dashEffect.SetFloat("Angle", 180);
+                }
             }
             else
             {
                 if (horizontalDir < 0)
                 {
                     facingRight = false;
-                    m_SpriteRenderer.flipX = true;
+                    graficsParent.transform.rotation = Quaternion.Euler(0, 180, 0);
+                    //m_SpriteRenderer.flipX = true;
+                    dashEffect.SetFloat("Angle", 180);
                 }
                 else if (horizontalDir > 0)
                 {
                     facingRight = true;
-                    m_SpriteRenderer.flipX = false;
+                    graficsParent.transform.rotation = Quaternion.Euler(0, 0, 0);
+                    dashEffect.SetFloat("Angle", 0);
+                    //m_SpriteRenderer.flipX = false;
                 }
             }
         }
@@ -243,7 +260,7 @@ public class PlayerController : MonoBehaviour
         #region Animation
 
         // Jump & Fall Animation
-        if (!canWallHang)
+        if (!canWallHang && !isDashing)
         {
             if (RigidBody.velocity.y > 7)
                 m_Animator.SetTrigger("Jumping");
@@ -252,7 +269,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // WallHang & Climb Animation
-        if (canWallHang)
+        if (canWallHang && !isDashing)
         {
             if (verticalDir == 0)
                 m_Animator.SetTrigger("WallHang");
@@ -261,7 +278,7 @@ public class PlayerController : MonoBehaviour
                 m_Animator.SetTrigger("WallClimb");
         }
         // Run and Idle Animation
-        if (cc.m_IsGrounded && !canWallHang)
+        if (cc.m_IsGrounded && !canWallHang && !isDashing)
         {
             if (Mathf.Abs(RigidBody.velocity.x) > 7)
                 m_Animator.SetTrigger("Running");
@@ -464,13 +481,21 @@ public class PlayerController : MonoBehaviour
     private void Dash(float _x, float _y, bool directionBased = false)
     {
         isDashing = true;
-        
+
+        m_Animator.ResetTrigger("Jumping");
+        m_Animator.ResetTrigger("Idle");
+        m_Animator.ResetTrigger("Running");
+        m_Animator.ResetTrigger("Falling");
+        m_Animator.ResetTrigger("WallHang");
+        m_Animator.SetTrigger("Dash");
 
         RigidBody.velocity = Vector2.zero;
         RigidBody.gravityScale = 0f;
         RigidBody.drag = 0f;
         dashResetTimer = 0f;
-        
+
+        dashEffect.Stop();
+        dashEffect.Play();
         Vector2 dir;
         
         // Based on the moving direction of the player
@@ -502,8 +527,15 @@ public class PlayerController : MonoBehaviour
         isDashing = false;
         RigidBody.velocity *= dashResetEffect;
         dashCDTimer = 0;
+        StartCoroutine(C_WaitForDashEffectReset());
     }
-    
+
+    private IEnumerator C_WaitForDashEffectReset()
+    {
+        yield return new WaitForSeconds(dashResetEffect);
+        dashEffect.Stop();
+    }
+
     private void Climb()
     {
         RigidBody.AddForce(new Vector2(0, verticalDir) * wallClimbAcceleration);
