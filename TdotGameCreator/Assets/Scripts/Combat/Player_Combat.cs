@@ -32,6 +32,9 @@ public class Player_Combat : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerController playerController;
 
+    private Coroutine shootingCoroutine;
+    private Coroutine meeleCoroutine;
+
     private bool canAttack => !playerController.isDashing && !playerController.canWallHang && !coolDown && !meeleCoolDown;
 
     private void Start()
@@ -76,7 +79,8 @@ public class Player_Combat : MonoBehaviour
     private void OnFire(CallbackContext _ctx)
     {
         if (!canAttack) return;
-        StopCoroutine(C_WaitTillStanceSwitch());
+        if(shootingCoroutine != null)
+            StopCoroutine(shootingCoroutine);
 
         coolDown = true;
         curTime = timeBetweenAttacks;
@@ -87,14 +91,17 @@ public class Player_Combat : MonoBehaviour
 
         bullet.Launch(gfxParent.right,10, layersToIgnore);
 
-        StartCoroutine(C_WaitTillStanceSwitch());
+        shootingCoroutine = StartCoroutine(C_WaitTillStanceSwitch());
         
     }
 
     private void OnMeele(CallbackContext _ctx)
     {
         if (!canAttack) return;
-        StopCoroutine(C_WaitTillMeeleStop());
+        if (meeleCoroutine != null)
+        {
+            StopCoroutine(meeleCoroutine);
+        }
 
         meeleCoolDown = true;
         curMeeleTime = timeBetweenMeeleAttacks;
@@ -102,7 +109,7 @@ public class Player_Combat : MonoBehaviour
         curSpeedMultiplier = moveSpeedMultiplier;
         
         animator.SetBool("Meele", true);
-        StartCoroutine(C_WaitTillMeeleStop());
+        meeleCoroutine = StartCoroutine(C_WaitTillMeeleStop());
     }
 
     public void DoMeeleAttack()

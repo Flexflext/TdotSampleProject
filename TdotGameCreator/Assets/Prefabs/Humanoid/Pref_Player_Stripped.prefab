@@ -901,7 +901,7 @@ MonoBehaviour:
   airLinDrag: 2.5
   fullJumpFallMultiplier: 10
   halfJumpFallMultiplier: 8
-  amountOfJumps: 1
+  amountOfJumps: 3
   m_AirborneSteer: 50
   wallJumpDir: {x: 0.5, y: 1}
   m_JumpParticles: {fileID: 8969914764484051996}
@@ -1089,6 +1089,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 50e73874-b3d3-4ccf-a73b-66dbe152b949
     m_ActionName: MaxiMap/Zoom[/Keyboard/e,/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2142c774-aad8-469f-85ff-d9c8309ed3a6
+    m_ActionName: Player/Meele[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1107,6 +1111,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBetweenAttacks: 0.5
+  layersToIgnore:
+    serializedVersion: 2
+    m_Bits: 63
+  meeleDamage: 1
+  attackRadius: 2
+  moveSpeedMultiplier: 0.75
+  timeBetweenMeeleAttacks: 0.5
   gfxParent: {fileID: 1543344319}
   animator: {fileID: 7089133593535387582}
   shotPosition: {fileID: 452898321}
