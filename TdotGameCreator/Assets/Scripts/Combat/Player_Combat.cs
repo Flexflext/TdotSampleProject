@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.VFX;
@@ -39,6 +40,7 @@ public class Player_Combat : MonoBehaviour
     [SerializeField] private Transform shotPosition;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private VisualEffect muzzleFlash;
+    [SerializeField] private GameObject meeleImpact;
     private Rigidbody2D rb;
     private PlayerController playerController;
 
@@ -48,7 +50,7 @@ public class Player_Combat : MonoBehaviour
     private Coroutine shootingCoroutine;
     private Coroutine meeleCoroutine;
 
-    private bool canAttack => !playerController.isDashing && !playerController.canWallHang && !coolDown && !meeleCoolDown;
+    private bool canAttack => !playerController.isDashing && !playerController.canWallHang && !meeleCoolDown;
 
     private void Start()
     {
@@ -129,6 +131,7 @@ public class Player_Combat : MonoBehaviour
     {
         if (curBullets <= 0) return;
         if (!canAttack) return;
+        if (coolDown) return;
 
         if(shootingCoroutine != null)
             StopCoroutine(shootingCoroutine);
@@ -194,7 +197,9 @@ public class Player_Combat : MonoBehaviour
             
             if (damage != null)
             {
+                GameObject impact = Instantiate(meeleImpact, damageObjs[i].ClosestPoint(shotPosition.position), Quaternion.identity);
                 damage.GetDamage(meeleDamage, gfxParent.right);
+                StartCoroutine(C_WaitTillMeeleImpactStop(impact));
             }
         }
     }
@@ -203,6 +208,12 @@ public class Player_Combat : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         animator.SetBool("Shooting", false);
+    }
+
+    private IEnumerator C_WaitTillMeeleImpactStop(GameObject _prefab)
+    {
+        yield return new WaitForSeconds(0.3f);
+        Destroy(_prefab);
     }
     
     private IEnumerator C_WaitTillMeeleStop()
