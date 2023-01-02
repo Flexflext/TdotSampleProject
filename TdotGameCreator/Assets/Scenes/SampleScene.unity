@@ -474,7 +474,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 4.203125
+  orthographic size: 4.2109375
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -31309,23 +31309,26 @@ MonoBehaviour:
       value: 0
       inSlope: 0
       outSlope: 0
-      tangentMode: 0
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 3
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
-      tangentMode: 0
+      tangentMode: 34
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  amountOfItems: 11
+  amountOfItems: 8
+  rowAmount: 6
+  rowSpacing: 0.54
+  collumSpacing: 1
   itemToSpawn: {fileID: 0}
 --- !u!4 &1432575891
 Transform:
@@ -31335,7 +31338,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1432575889}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.13, y: 3.77, z: 0}
+  m_LocalPosition: {x: 5.44, y: 16.55, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -31510,11 +31513,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1096284469, guid: f0610359fcdedc747a4d922cde5aabe8, type: 3}
       propertyPath: timeBetweenAttacks
-      value: 0.01
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1096284469, guid: f0610359fcdedc747a4d922cde5aabe8, type: 3}
       propertyPath: timeBetweenBulletRegen
-      value: 0.01
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1262187288, guid: f0610359fcdedc747a4d922cde5aabe8, type: 3}
       propertyPath: m_PropertySheet.m_Int.m_Array.Array.data[1].m_Value
