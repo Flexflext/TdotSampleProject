@@ -17,6 +17,12 @@ public class ItemSpawner : MonoBehaviour
 
     private Vector2[,] positions;
 
+    private void Awake()
+    {
+        GeneratePositions();
+        SpawnItems();
+    }
+
     private void GeneratePositions()
     {
         positions = new Vector2[amountOfItems, rowAmount];
@@ -34,6 +40,18 @@ public class ItemSpawner : MonoBehaviour
                 }
                 curPosition += addpercent;
             }
+    }
+
+    private void SpawnItems()
+    {
+        for (int i = 0; i < amountOfItems; i++)
+        {
+            for (int j = 0; j < rowAmount; j++)
+            {
+                GameObject itemSpawned = Instantiate(itemToSpawn, positions[i, j], Quaternion.identity);
+                itemSpawned.transform.SetParent(this.transform);
+            }
+        }
     }
     
     

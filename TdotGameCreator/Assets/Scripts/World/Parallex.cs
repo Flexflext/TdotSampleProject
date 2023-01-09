@@ -37,7 +37,7 @@ public class Parallex : MonoBehaviour
         
     }
 
-    private void LateUpdate()
+    private void FixedUpdate()
     {
         float temp = 0;
         float distance = 0;
@@ -47,7 +47,7 @@ public class Parallex : MonoBehaviour
             temp = (camTransform.transform.position.x * (1 - parallexBackgrounds[i].moveWithCamera));
             distance = (camTransform.transform.position.x * parallexBackgrounds[i].moveWithCamera);
 
-            parallexBackgrounds[i].rendererObject.transform.position = new Vector3(parallexBackgrounds[i].StartPos + distance, parallexBackgrounds[i].rendererObject.transform.position.y, parallexBackgrounds[i].rendererObject.transform.position.z);
+            parallexBackgrounds[i].rendererObject.transform.position = new Vector3(parallexBackgrounds[i].StartPos + distance, parallexBackgrounds[i].rendererObject.transform.position.y + camTransform.position.y, parallexBackgrounds[i].rendererObject.transform.position.z);
 
             if (temp > parallexBackgrounds[i].StartPos + parallexBackgrounds[i].Lenght)
             {
